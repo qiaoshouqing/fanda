@@ -643,6 +643,8 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
             points = 12; // 白菜较高分数
           } else if (item.type === 'egg') {
             points = 8; // 鸡蛋中等分数
+          } else if (item.type === 'poop') {
+            points = 20; // 给便便最高分数
           }
           
           pointsEarned += points;

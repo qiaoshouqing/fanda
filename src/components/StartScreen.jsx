@@ -114,7 +114,7 @@ const BilibiliLink = styled.a`
 const StartScreen = ({ onStart, highScore }) => {
   return (
     <StartScreenContainer>
-      <Title>超级无敌<span>芬达切切切</span>!</Title>
+      <Title><span>他们朝我扔粑粑</span>!</Title>
       <Subtitle>『你礼貌吗』豪华版</Subtitle>
       
       <Instructions>
