@@ -18,7 +18,7 @@ const AlertContainer = styled.div`
 const IOSAlert = () => {
   return (
     <AlertContainer>
-      ⚠️ This game is not fully compatible with iOS devices. For the best experience, please use a desktop browser.
+      ⚠️ 此游戏与iOS设备不完全兼容，会产生异常卡顿。为获得最佳体验，请使用桌面浏览器。
     </AlertContainer>
   );
 };
