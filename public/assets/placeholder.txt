@@ -1,0 +1,12 @@
+注意：为了使游戏正常运行，需要将所有SVG文件转换为PNG文件。
+
+可以使用在线工具将SVG转换为PNG，然后替换以下文件：
+- stone.svg -> stone.png
+- cigarette.svg -> cigarette.png
+- mud.svg -> mud.png
+- summons.svg -> summons.png
+- poop.svg -> poop.png
+- bottle.svg -> bottle.png
+- bomb.svg -> bomb.png
+
+也可以使用自定义的PNG图片，只要保持相同的文件名。 

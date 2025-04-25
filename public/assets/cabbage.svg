@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cabbage outer leaves -->
+  <path d="M256 120C180 120 120 180 120 256C120 332 180 392 256 392C332 392 392 332 392 256C392 180 332 120 256 120Z" fill="#DCEDC8"/>
+  <!-- Cabbage inner leaves -->
+  <path d="M256 150C195 150 150 195 150 256C150 317 195 362 256 362C317 362 362 317 362 256C362 195 317 150 256 150Z" fill="#AED581"/>
+  <!-- Cabbage core -->
+  <path d="M256 180C210 180 180 210 180 256C180 302 210 332 256 332C302 332 332 302 332 256C332 210 302 180 256 180Z" fill="#8BC34A"/>
+  <!-- Leaf details -->
+  <path d="M256 120C180 120 120 180 120 256C120 332 180 392 256 392C332 392 392 332 392 256C392 180 332 120 256 120Z" stroke="#4CAF50" stroke-width="3" fill="none"/>
+  <path d="M205 150C170 170 150 210 150 256" stroke="#4CAF50" stroke-width="3" fill="none"/>
+  <path d="M307 150C342 170 362 210 362 256" stroke="#4CAF50" stroke-width="3" fill="none"/>
+  <path d="M206 362C171 342 150 302 150 256" stroke="#4CAF50" stroke-width="3" fill="none"/>
+  <path d="M306 362C341 342 362 302 362 256" stroke="#4CAF50" stroke-width="3" fill="none"/>
+  <!-- Leaf veins -->
+  <path d="M256 120L256 180" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M256 332L256 392" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M180 256L120 256" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M332 256L392 256" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M210 210L160 160" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M302 210L352 160" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M210 302L160 352" stroke="#4CAF50" stroke-width="3"/>
+  <path d="M302 302L352 352" stroke="#4CAF50" stroke-width="3"/>
+</svg> 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Egg shape -->
+  <ellipse cx="256" cy="276" rx="120" ry="150" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="4"/>
+  <!-- Egg shine -->
+  <ellipse cx="226" cy="226" rx="70" ry="90" fill="#F5F5F5"/>
+  <!-- Egg shadow at bottom -->
+  <path d="M256 426C316 426 376 366 376 276C376 246 370 218 358 196" stroke="#E0E0E0" stroke-width="12" stroke-linecap="round"/>
+  <!-- Egg outline to make it look more 3D -->
+  <ellipse cx="256" cy="276" rx="120" ry="150" stroke="#EEEEEE" stroke-width="2" fill="none"/>
+  <!-- Small shine detail -->
+  <ellipse cx="206" cy="196" rx="20" ry="30" fill="#FFFFFF"/>
+</svg> 
