@@ -4,7 +4,6 @@ import { Howl } from 'howler';
 import GameScreen from './components/GameScreen';
 import StartScreen from './components/StartScreen';
 import GameOver from './components/GameOver';
-import PixiGame from './PixiGame';
 
 // 游戏状态枚举
 const GameState = {
@@ -44,27 +43,6 @@ const AppContainer = styled.div`
   position: relative;
 `;
 
-// 版本选择按钮样式
-const VersionButton = styled.button`
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 8px 15px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1000;
-  font-size: 14px;
-  transition: all 0.2s;
-  
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.05);
-  }
-`;
-
 function App() {
   const [gameState, setGameState] = useState(GameState.START);
   const [score, setScore] = useState(0);
@@ -73,7 +51,6 @@ function App() {
     return saved ? parseInt(saved, 10) : 0;
   });
   const [gameOverReason, setGameOverReason] = useState('');
-  const [usePixi, setUsePixi] = useState(false);
 
   // 更新最高分
   useEffect(() => {
@@ -132,26 +109,6 @@ function App() {
     }
   };
 
-  // 切换游戏版本
-  const toggleVersion = () => {
-    setUsePixi(!usePixi);
-    if (gameState !== GameState.START) {
-      goToHome();
-    }
-  };
-
-  // 如果使用PixiJS版本，直接显示
-  if (usePixi) {
-    return (
-      <AppContainer>
-        <PixiGame />
-        <VersionButton onClick={toggleVersion}>
-          切换到React版本
-        </VersionButton>
-      </AppContainer>
-    );
-  }
-
   return (
     <AppContainer>
       {gameState === GameState.START && (
@@ -170,10 +127,6 @@ function App() {
           onGoHome={goToHome}
         />
       )}
-      
-      <VersionButton onClick={toggleVersion}>
-        切换到PixiJS版本
-      </VersionButton>
     </AppContainer>
   );
 }
