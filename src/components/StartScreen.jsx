@@ -134,7 +134,7 @@ const StartScreen = ({ onStart, highScore }) => {
         关注UP主：萌威Wilson
       </BilibiliLink>
       
-      <Footer>免责声明：本游戏仅供娱乐，无意冒犯任何人</Footer>
+      <Footer>免责声明：本游戏仅供娱乐</Footer>
     </StartScreenContainer>
   );
 };

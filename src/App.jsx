@@ -4,6 +4,7 @@ import { Howl } from 'howler';
 import GameScreen from './components/GameScreen';
 import StartScreen from './components/StartScreen';
 import GameOver from './components/GameOver';
+import IOSAlert from './components/IOSAlert';
 
 // 游戏状态枚举
 const GameState = {
@@ -51,6 +52,7 @@ function App() {
     return saved ? parseInt(saved, 10) : 0;
   });
   const [gameOverReason, setGameOverReason] = useState('');
+  const [isIOS, setIsIOS] = useState(false);
 
   // 更新最高分
   useEffect(() => {
@@ -59,6 +61,22 @@ function App() {
       localStorage.setItem('fantaHighScore', score.toString());
     }
   }, [score, highScore]);
+
+  useEffect(() => {
+    // Get high score from local storage
+    const storedHighScore = localStorage.getItem('highScore');
+    if(storedHighScore) {
+      setHighScore(parseInt(storedHighScore));
+    }
+
+    // Detect iOS devices
+    const detectIOS = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    setIsIOS(detectIOS());
+  }, []);
 
   // 开始游戏
   const startGame = () => {
@@ -111,6 +129,7 @@ function App() {
 
   return (
     <AppContainer>
+      {isIOS && <IOSAlert />}
       {gameState === GameState.START && (
         <StartScreen onStart={startGame} highScore={highScore} />
       )}
