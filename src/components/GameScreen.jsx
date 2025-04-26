@@ -75,6 +75,30 @@ const TimerDisplay = styled.div`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 `;
 
+// 切割消息提示
+const CutMessageDisplay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #FFD700;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px 25px;
+  border-radius: 15px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+  z-index: 70;
+  opacity: ${props => props.$opacity};
+  transition: opacity 0.3s ease-in, transform 0.3s ease-out;
+  pointer-events: none;
+  border: 2px solid #FF8C00;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+  max-width: 80%;
+  text-align: center;
+  transform: translate(-50%, -50%) scale(${props => props.$scale});
+`;
+
 // 使用memo优化Item组件渲染
 const MemoizedItem = memo(Item);
 
@@ -173,6 +197,7 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
   const [sliceEffects, setSliceEffects] = useState([]);
   const [timeLeft, setTimeLeft] = useState(15); // 15秒倒计时
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [cutMessage, setCutMessage] = useState({ text: '', opacity: 0, scale: 0.5, timer: null });
   
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -538,6 +563,60 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
     setLastTouch({ x: 0, y: 0 });
   };
   
+  // 显示切割消息
+  const showCutMessage = (itemType) => {
+    // 清除之前的计时器
+    if (cutMessage.timer) {
+      clearTimeout(cutMessage.timer);
+    }
+    
+    let messageText = '';
+    switch (itemType) {
+      case 'stone':
+        messageText = '他们朝我扔石头，我拿石头砌小楼';
+        break;
+      case 'cigarette':
+        messageText = '他们朝我扔烟头，我捡起烟头抽两口';
+        break;
+      case 'poop':
+        messageText = '他们朝我扔粑粑，我拿粑粑做蛋挞';
+        break;
+      case 'cabbage':
+        messageText = '他们朝我扔白菜，我拿白菜炒盘菜';
+        break;
+      case 'egg':
+        messageText = '他们朝我扔鸡蛋，我拿鸡蛋做蛋炒饭';
+        break;
+      case 'bottle':
+        messageText = '他们朝我扔芬达，我就喝两口芬达';
+        break;
+      case 'mud':
+        messageText = '他们朝我扔泥巴，我拿泥巴种荷花';
+        break;
+      case 'bomb':
+        messageText = '他们朝我扔炸弹，我拿炸弹炸他们';
+        break;
+      default:
+        return; // 不显示消息
+    }
+    
+    // 设置消息并显示, 带有弹出动画效果
+    setCutMessage({ 
+      text: messageText, 
+      opacity: 1,
+      scale: 1.2, // 开始时放大一点
+      timer: setTimeout(() => {
+        // 先缩小到正常大小
+        setCutMessage(prev => ({ ...prev, scale: 1 }));
+        
+        // 然后1.5秒后开始淡出
+        setTimeout(() => {
+          setCutMessage(prev => ({ ...prev, opacity: 0, scale: 0.9 }));
+        }, 1500);
+      }, 100)
+    });
+  };
+  
   // 检测轨迹与物品的碰撞 - 批量处理命中和效果 - 优化性能
   const checkCollision = (start, end) => {
     // 创建轨迹向量
@@ -592,6 +671,7 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
     let comboIncrease = 0;
     let gameOverTriggered = false;
     let pointsEarned = 0;
+    let lastCutItemType = null;
     
     possibleHits.forEach(item => {
       // 计算物品中心到轨迹起点的向量
@@ -628,6 +708,9 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
           type: item.type
         });
         
+        // 记录最后切到的物品类型，用于显示消息
+        lastCutItemType = item.type;
+        
         if (item.type === 'summons') {
           // 传票被击中，游戏结束
           playSound('summons');
@@ -662,6 +745,11 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
     if (animatedItems.length > 0) {
       // 添加切割效果
       addSliceEffects(animatedItems);
+      
+      // 显示相应的切割消息
+      if (lastCutItemType) {
+        showCutMessage(lastCutItemType);
+      }
       
       // 移除被击中的物品
       setItems(prevItems => 
@@ -734,6 +822,11 @@ const GameScreen = ({ onGameOver, onScore, score }) => {
       onTouchEnd={handleTouchEnd}
     >
       <Canvas ref={canvasRef} />
+      
+      {/* 切割消息显示 */}
+      <CutMessageDisplay $opacity={cutMessage.opacity} $scale={cutMessage.scale}>
+        {cutMessage.text}
+      </CutMessageDisplay>
       
       {/* 菜刀鼠标指针 - 仅当位置有效时显示 */}
       {cursorPosition.x > 0 && cursorPosition.y > 0 && (
